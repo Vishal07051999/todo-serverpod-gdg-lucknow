@@ -9,29 +9,54 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../endpoints/example_endpoint.dart' as _i2;
+import '../endpoints/todo_endpoint.dart' as _i2;
+import 'package:serverpod_auth_server/module.dart' as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
   void initializeEndpoints(_i1.Server server) {
     var endpoints = <String, _i1.Endpoint>{
-      'example': _i2.ExampleEndpoint()
+      'toDo': _i2.ToDoEndpoint()
         ..initialize(
           server,
-          'example',
+          'toDo',
           null,
         )
     };
-    connectors['example'] = _i1.EndpointConnector(
-      name: 'example',
-      endpoint: endpoints['example']!,
+    connectors['toDo'] = _i1.EndpointConnector(
+      name: 'toDo',
+      endpoint: endpoints['toDo']!,
       methodConnectors: {
-        'hello': _i1.MethodConnector(
-          name: 'hello',
+        'create': _i1.MethodConnector(
+          name: 'create',
           params: {
-            'name': _i1.ParameterDescription(
-              name: 'name',
+            'title': _i1.ParameterDescription(
+              name: 'title',
               type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'description': _i1.ParameterDescription(
+              name: 'description',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['toDo'] as _i2.ToDoEndpoint).create(
+            session,
+            params['title'],
+            params['description'],
+          ),
+        ),
+        'markCompleted': _i1.MethodConnector(
+          name: 'markCompleted',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
               nullable: false,
             )
           },
@@ -39,12 +64,40 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['example'] as _i2.ExampleEndpoint).hello(
+              (endpoints['toDo'] as _i2.ToDoEndpoint).markCompleted(
             session,
-            params['name'],
+            params['id'],
           ),
-        )
+        ),
+        'delete': _i1.MethodConnector(
+          name: 'delete',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['toDo'] as _i2.ToDoEndpoint).delete(
+            session,
+            params['id'],
+          ),
+        ),
+        'getAll': _i1.MethodConnector(
+          name: 'getAll',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['toDo'] as _i2.ToDoEndpoint).getAll(session),
+        ),
       },
     );
+    modules['serverpod_auth'] = _i3.Endpoints()..initializeEndpoints(server);
   }
 }

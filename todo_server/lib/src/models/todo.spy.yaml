@@ -1,0 +1,11 @@
+class: ToDo
+table: todo
+fields:
+  uid:
+    type: int
+  title:
+    type: String
+  description:
+    type: String
+  completed:
+    type: bool

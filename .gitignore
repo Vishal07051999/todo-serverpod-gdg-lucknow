@@ -3,7 +3,7 @@
 *.iml
 
 ### Firebase Key
-todo_server/config/firebase-key.json
+todo_server/config/firebase_service_account_key.json
 
 ### Flutter template
 # Flutter/Dart/Pub related
