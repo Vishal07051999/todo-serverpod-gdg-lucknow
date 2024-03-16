@@ -140,6 +140,7 @@ class _ToDoAppState extends State<ToDoApp> {
                           child: const Text('LogOut'),
                         ),
                       ),
+                      Text("User :- ${sessionManager.signedInUser?.userName}")
                     ],
                   ),
                   Expanded(
@@ -261,8 +262,7 @@ class AnonymousApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(
-          title: 'Serverpod TODO Application with Firebase Auth'),
+      home: const MyHomePage(title: 'TODO with Firebase Auth'),
     );
   }
 }
