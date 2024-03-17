@@ -67,21 +67,21 @@ class AnonymousApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'TODO with Firebase Auth'),
+      home: const AnonymousPage(title: 'TODO with Firebase Auth'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class AnonymousPage extends StatefulWidget {
+  const AnonymousPage({super.key, required this.title});
 
   final String title;
 
   @override
-  MyHomePageState createState() => MyHomePageState();
+  AnonymousPageState createState() => AnonymousPageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class AnonymousPageState extends State<AnonymousPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
